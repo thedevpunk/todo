@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers
 {
@@ -11,21 +14,29 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class TasksController : Controller
     {
+        private readonly ITaskRepository _taskRepo;
+        private readonly ILogger<TasksController> _logger;
 
-        private readonly TodoContext _context;
-
-        public TasksController(TodoContext context)
+        public TasksController(ITaskRepository taskRepo, ILogger<TasksController> logger)
         {
-            _context = context;
-
+            _logger = logger;
+            _taskRepo = taskRepo;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Core.Entities.Task>> Get()
+        public async Task<IEnumerable<Core.Entities.Task>> GetTasks()
         {
-            IEnumerable<Core.Entities.Task> tasks = await _context.Tasks.ToListAsync();
+            IEnumerable<Core.Entities.Task> tasks = await _taskRepo.GetTasksAsync();
 
             return tasks;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<Core.Entities.Task> GetTask(Guid id)
+        {
+            Core.Entities.Task task = await _taskRepo.GetTaskByGuidAsync(id);
+
+            return task;
         }
     }
 }
