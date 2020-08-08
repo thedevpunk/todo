@@ -7,12 +7,14 @@ namespace Core.Interfaces
 {
     public interface IItemRepository
     {
-         Task<Item> GetItemByGuidAsync(Guid guid);
+         Task<Item> GetItemByIdAsync(Guid id);
 
          Task<IReadOnlyList<Item>> GetItemsAsync();
 
          Task CreateItemAsync(Item item);
 
          Task UpdateItemAsync(Item item);
+
+         Task DeleteItemAsync(Guid id);
     }
 }

@@ -33,7 +33,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<Item> GetItem(Guid id)
         {
-            Item item = await _itemRepo.GetItemByGuidAsync(id);
+            Item item = await _itemRepo.GetItemByIdAsync(id);
 
             return item;
         }
@@ -50,6 +50,14 @@ namespace Api.Controllers
         public async Task<IActionResult> UpdateItem(Item item)
         {
             await _itemRepo.UpdateItemAsync(item);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(Guid id)
+        {
+            await _itemRepo.DeleteItemAsync(id);
 
             return Ok();
         }
