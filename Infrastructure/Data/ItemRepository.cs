@@ -20,7 +20,7 @@ namespace Infrastructure.Data
 
         public async Task<Item> GetItemByIdAsync(Guid id)
         {
-            var filter = Builders<Item>.Filter.Eq("Id", id);
+            var filter = Builders<Item>.Filter.Eq(i => i.Id, id);
 
             return await _context.Items.FindSync(filter).FirstOrDefaultAsync();
         }
@@ -37,14 +37,23 @@ namespace Infrastructure.Data
 
         public async Task UpdateItemAsync(Item item)
         {
-            await _context.Items.ReplaceOneAsync(doc => doc.Id == item.Id, item, new ReplaceOptions{ IsUpsert = true });
+            var filter = Builders<Item>.Filter.Eq(i => i.Id, item.Id);
+
+            await _context.Items.ReplaceOneAsync(filter, item, new ReplaceOptions{ IsUpsert = true });
         }
 
         public async Task DeleteItemAsync(Guid id)
         {
-            var filter = Builders<Item>.Filter.Eq("Id", id);
+            var filter = Builders<Item>.Filter.Eq(i => i.Id, id);
 
             await _context.Items.DeleteOneAsync(filter);
+        }
+
+        public async Task MarkItemAsDone(Guid id)
+        {
+            var filter = Builders<Item>.Filter.Eq(i => i.Id, id);
+            var update = Builders<Item>.Update.Set(i => i.IsDone, true);
+            await _context.Items.UpdateOneAsync(filter, update);
         }
     }
 }

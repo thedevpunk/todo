@@ -49,6 +49,12 @@ namespace Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateItem(Item item)
         {
+            var itemFromDb = await _itemRepo.GetItemByIdAsync(item.Id);
+            if (itemFromDb == null)
+            {
+                return NoContent();
+            }
+
             await _itemRepo.UpdateItemAsync(item);
 
             return Ok();

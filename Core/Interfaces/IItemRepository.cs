@@ -16,5 +16,7 @@ namespace Core.Interfaces
          Task UpdateItemAsync(Item item);
 
          Task DeleteItemAsync(Guid id);
+
+         Task MarkItemAsDone(Guid id);
     }
 }
