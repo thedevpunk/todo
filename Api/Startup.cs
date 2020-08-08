@@ -29,7 +29,7 @@ namespace Api
         {
             services.AddControllers();
 
-            services.AddDbContext<TodoContext>(config => config.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<TodoContext>();
 
             services.AddScoped<ITaskRepository, TaskRepository>();
         }

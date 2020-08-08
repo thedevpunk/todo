@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Entities;
 
 namespace Core.Interfaces
 {
     public interface ITaskRepository
     {
-         Task<Core.Entities.Task> GetTaskByGuidAsync(Guid guid);
+         Task<TodoTask> GetTaskByGuidAsync(Guid guid);
 
-         Task<IReadOnlyList<Core.Entities.Task>> GetTasksAsync();
+         Task<IReadOnlyList<TodoTask>> GetTasksAsync();
     }
 }

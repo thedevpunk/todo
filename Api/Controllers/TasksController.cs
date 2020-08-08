@@ -24,17 +24,17 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Core.Entities.Task>> GetTasks()
+        public async Task<IEnumerable<TodoTask>> GetTasks()
         {
-            IEnumerable<Core.Entities.Task> tasks = await _taskRepo.GetTasksAsync();
+            IEnumerable<TodoTask> tasks = await _taskRepo.GetTasksAsync();
 
             return tasks;
         }
 
         [HttpGet("{id}")]
-        public async Task<Core.Entities.Task> GetTask(Guid id)
+        public async Task<TodoTask> GetTask(Guid id)
         {
-            Core.Entities.Task task = await _taskRepo.GetTaskByGuidAsync(id);
+            TodoTask task = await _taskRepo.GetTaskByGuidAsync(id);
 
             return task;
         }
