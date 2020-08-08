@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Entities
 {
-    public class TodoTask
+    public class Item
     {
         public Guid Id { get; set; }
 

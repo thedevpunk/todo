@@ -1,5 +1,4 @@
 using Core.Entities;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
 namespace Infrastructure.Data
@@ -8,12 +7,12 @@ namespace Infrastructure.Data
     {
         private IMongoDatabase _database;
 
-        public IMongoCollection<TodoTask> Tasks => _database.GetCollection<TodoTask>("task");
-
-        public TodoContext()
+        public TodoContext(string connectionString)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(connectionString);
             _database = client.GetDatabase("todo");
         }
+
+        public IMongoCollection<Item> Items => _database.GetCollection<Item>("items");
     }
 }
