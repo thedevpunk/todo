@@ -37,9 +37,9 @@ export const Dashboard = () => {
     
     
     return (
-        <div>
+        <div className="dashboard">
            {items.map(item => (
-               <Item item={item} />
+               <Item key={item.id} item={item} />
            ))}
         </div>
     )

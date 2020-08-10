@@ -10,10 +10,10 @@ export const Item: React.FC<IProps> = ({ item }) => {
 
 
     return (
-        <div style={{ display: 'flex' }}>
-            <div className="round">
-                <input type="checkbox" id="checkbox" defaultChecked={item.isDone}/>
-                <label htmlFor="checkbox"></label>
+        <div className="item">
+            <div className="checkbox">
+                <input type="checkbox" id={`itemCheckbox${item.id}`} defaultChecked={item.isDone}/>
+                <label htmlFor={`itemCheckbox${item.id}`}></label>
             </div>
             <div>{item.title}</div>
         </div>
