@@ -34,13 +34,37 @@ const testDataItems = [
 
 export const Dashboard = () => {
     const [items, setItems] = useState<IItem[]>(testDataItems);
-    
-    
+
+
+
+
+    const handleCheckItem = (id: string) => {
+        
+        const itemToCheck = items.find(i => i.id === id);
+        console.log(itemToCheck);
+        if (itemToCheck) {
+            itemToCheck.isDone = !itemToCheck.isDone
+            if (itemToCheck.isDone) {
+                const newItems = [...items.filter(i => i.id !== id), itemToCheck];
+                setItems(newItems);
+            } else {
+                const itemsUnchecked = [...items.filter(i => i.isDone === false)];
+                const itemsChecked = [...items.filter(i => i.isDone === true)];
+
+                setItems([...itemsUnchecked, ...itemsChecked]);
+            }
+        }
+    }
+
     return (
         <div className="dashboard">
-           {items.map(item => (
-               <Item key={item.id} item={item} />
-           ))}
+            {items.map(item => (
+                <Item
+                    key={item.id}
+                    item={item}
+                    checkItem={handleCheckItem}
+                />
+            ))}
         </div>
     )
 }
