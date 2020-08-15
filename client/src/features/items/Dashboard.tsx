@@ -1,8 +1,8 @@
-import React, { useState, createRef } from 'react';
-import axios from 'axios';
+import React, { useState, createRef, useEffect } from 'react';
 import { IItem } from '../../app/models/item';
 import { Item } from './Item';
 import { AnimateItems } from './AnimateItems';
+import agent from '../../app/api/agent';
 
 const testDataItems = [
     {
@@ -34,7 +34,31 @@ const testDataItems = [
 
 
 export const Dashboard = () => {
-    const [items, setItems] = useState<IItem[]>(testDataItems);
+    const [items, setItems] = useState<IItem[]>([]);
+
+    const loadItems = () => {
+        agent.Items.list().then(itemsFromApi => {
+            setItems(itemsFromApi);
+        }).catch(() => {
+            setItems([]);
+        });
+    }
+
+    const markItemDone = (id: string, isDone: boolean = true) => {
+        if (isDone) {
+            agent.Items.done(id).then(() => {
+                // loadItems();
+            });
+        } else {
+            agent.Items.undone(id).then(() => {
+                // loadItems();
+            })
+        }
+    }
+
+    useEffect(() => {
+        loadItems();
+    }, []);
 
     const handleCheckItem = (id: string) => {
 
@@ -44,11 +68,13 @@ export const Dashboard = () => {
             if (itemToCheck.isDone) {
                 const newItems = [...items.filter(i => i.id !== id), itemToCheck];
                 setItems(newItems);
+                markItemDone(id);
             } else {
                 const itemsUnchecked = [...items.filter(i => i.isDone === false)];
                 const itemsChecked = [...items.filter(i => i.isDone === true)];
 
                 setItems([...itemsUnchecked, ...itemsChecked]);
+                markItemDone(id, false);
             }
         }
     }

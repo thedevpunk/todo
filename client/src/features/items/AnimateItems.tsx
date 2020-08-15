@@ -10,6 +10,7 @@ function usePrevious(value: any) {
 
 const calculateBoundingBoxes = (children: any) => {
     const boundingBoxes: any = {};
+    console.log(children);
     React.Children.forEach(children, (child: any) => {
         const domNode = child.ref.current;
         const nodeBoundingBox = domNode.getBoundingClientRect();

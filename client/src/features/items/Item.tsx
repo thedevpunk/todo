@@ -1,4 +1,4 @@
-import React, { useRef, createRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { IItem } from '../../app/models/item';
 import './Items.scss';
 
