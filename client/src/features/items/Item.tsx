@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, createRef, forwardRef } from 'react';
 import { IItem } from '../../app/models/item';
 import './Items.scss';
 
@@ -7,16 +7,15 @@ interface IProps {
     checkItem: (id: string) => void;
 }
 
-export const Item: React.FC<IProps> = ({ item, checkItem }) => {
-
+export const Item = forwardRef<HTMLDivElement, IProps>(({ item, checkItem }, ref) => {
 
     return (
-        <div className={`item${item.isDone ? ' item-checked' : ''}`}>
+        <div ref={ref} className={`item${item.isDone ? ' item-checked' : ''}`}>
             <div className="checkbox">
-                <input type="checkbox" id={`itemCheckbox${item.id}`} defaultChecked={item.isDone} onChange={() => checkItem(item.id)}/>
+                <input type="checkbox" id={`itemCheckbox${item.id}`} defaultChecked={item.isDone} onChange={() => checkItem(item.id)} />
                 <label htmlFor={`itemCheckbox${item.id}`}></label>
             </div>
             <div>{item.title}</div>
         </div>
     )
-}
+})

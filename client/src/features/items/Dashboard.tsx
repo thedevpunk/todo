@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import axios from 'axios';
 import { IItem } from '../../app/models/item';
 import { Item } from './Item';
+import { AnimateItems } from './AnimateItems';
 
 const testDataItems = [
     {
@@ -35,13 +36,9 @@ const testDataItems = [
 export const Dashboard = () => {
     const [items, setItems] = useState<IItem[]>(testDataItems);
 
-
-
-
     const handleCheckItem = (id: string) => {
-        
+
         const itemToCheck = items.find(i => i.id === id);
-        console.log(itemToCheck);
         if (itemToCheck) {
             itemToCheck.isDone = !itemToCheck.isDone
             if (itemToCheck.isDone) {
@@ -58,13 +55,16 @@ export const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            {items.map(item => (
-                <Item
-                    key={item.id}
-                    item={item}
-                    checkItem={handleCheckItem}
-                />
-            ))}
+            <AnimateItems>
+                {items.map(item => (
+                    <Item
+                        ref={createRef<HTMLDivElement>()}
+                        key={item.id}
+                        item={item}
+                        checkItem={handleCheckItem}
+                    />
+                ))}
+            </AnimateItems>
         </div>
     )
 }

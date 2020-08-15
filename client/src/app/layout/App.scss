@@ -36,33 +36,31 @@
 //     transform: rotate(360deg);
 //   }
 // }
+.light-mode {
+  --backgroundPrimary: linear-gradient(to bottom right, #76b0f7, #86f1ec);
+  --backgroundSecondary: #ffffff;
+  --fontPrimary: #555555;
+  --fontSecondary: #ffffff;
+}
+
+.dark-mode {
+  --backgroundPrimary: linear-gradient(to bottom right, #366eb3, #265f5f);
+  --backgroundSecondary: #292929;
+  --fontPrimary: #999999;
+  --fontSecondary: #292929;
+}
 
 .app {
   height: 100%;
   width: 100%;
   overflow: hidden;
   transition: all ease 0.2s;
-
-  &.light-mode {
-    background-image: linear-gradient(to bottom right, #76b0f7, #86f1ec);
-    color: #fff;
-
-    .app-content {
-      color: #555555;
-    }
-  }
-
-  &.dark-mode {
-    background-image: linear-gradient(to bottom right, #366eb3, #265f5f);
-    color: #292929;
-
-    .app-content {
-      color: #999999;
-    }
-  }
+  background-image: var(--backgroundPrimary);
+  
 
   .app-header {
     height: 4rem;
+    color: var(--fontSecondary);
 
     .container {
       display: flex;
@@ -88,6 +86,7 @@
   .app-content {
     height: calc(100% - 3rem);
     overflow: auto;
+    color: var(--fontPrimary);
   }
 }
 

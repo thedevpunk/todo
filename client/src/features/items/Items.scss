@@ -6,26 +6,7 @@
   -moz-box-shadow: 0px 8px 32px 0px rgba(0, 0, 0, 0.24);
   box-shadow: 0px 8px 32px 0px rgba(0, 0, 0, 0.24);
   transition: all ease 0.2s;
-}
-
-label {
-  transition: all ease 0.2s;
-}
-
-.light-mode {
-  .dashboard {
-    background-color: #fff;
-  }
-}
-
-.dark-mode {
-  .dashboard {
-    background-color: #292929;
-
-    label {
-      background-color: #292929;
-    }
-  }
+  background-color: var(--backgroundSecondary);
 }
 
 .item {
@@ -47,7 +28,7 @@ label {
   margin-right: 1rem;
 
   > label {
-    background-color: #fff;
+    background-color: var(--backgroundSecondary);
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
@@ -56,6 +37,7 @@ label {
     position: absolute;
     top: 0;
     width: 2rem;
+    transition: all ease 0.2s;
 
     &:after {
       border: 2px solid #fff;
